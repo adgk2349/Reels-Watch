@@ -1,33 +1,31 @@
 import SwiftUI
 
-/// 배선 확인용 임시 화면. 다음 단계에서 영상 화면(제스처 포함)으로 교체한다.
+@MainActor
 struct RootView: View {
-    let provider: any ReelsProvider
+    @State private var model: ReelsViewModel
 
-    @State private var reels: [Reel] = []
-    @State private var errorMessage: String?
+    init(provider: any ReelsProvider) {
+        _model = State(initialValue: ReelsViewModel(provider: provider))
+    }
 
     var body: some View {
         Group {
-            if let errorMessage {
-                Text(errorMessage)
-            } else if reels.isEmpty {
+            switch model.loadState {
+            case .idle, .loading:
                 ProgressView()
-            } else {
-                List(reels) { reel in
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text(reel.authorHandle).font(.headline)
-                        Text(reel.caption).font(.caption)
-                    }
+            case .failed:
+                VStack(spacing: 8) {
+                    Text("불러오지 못했어요")
+                    Button("다시 시도") { Task { await model.loadInitial() } }
+                }
+            case .loaded:
+                if model.reels.isEmpty {
+                    Text("영상이 없어요")
+                } else {
+                    ReelScreen(model: model)
                 }
             }
         }
-        .task {
-            do {
-                reels = try await provider.fetchReels(after: nil).items
-            } catch {
-                errorMessage = "불러오지 못했어요"
-            }
-        }
+        .task { await model.loadInitial() }
     }
 }

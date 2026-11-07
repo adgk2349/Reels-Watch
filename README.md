@@ -11,7 +11,9 @@ ReelsWatch/
   App/       앱 진입점 (데이터 소스는 여기서 주입)
   Models/    Reel, ReelComment, DMThread, Page
   Data/      ReelsProvider 프로토콜 + MockReelsProvider
-  Views/     SwiftUI 화면
+  ViewModels/ ReelsViewModel (화면 상태, 스와이프 라우팅, 낙관적 좋아요)
+  Views/     ReelScreen, CommentsOverlay, ShareSheet, ReelPosterView
+  Support/   SwipeIntent, Formatting, Haptics
 ReelsWatchTests/
 ```
 
@@ -28,10 +30,10 @@ xcodegen generate
 open ReelsWatch.xcodeproj
 ```
 
-`project.yml`의 번들 ID(`com.example.*`)는 본인 것으로 바꿔야 한다.
+번들 ID는 `com.redbridgecompany.reelswatch` (`project.yml`).
 
 ## 진행 상황
 
 - [x] 1. 프로젝트 구조, `ReelsProvider`, 목업 구현체, 단위 테스트
-- [ ] 2. 영상 화면 → 댓글창(토글, 용두 스크롤, 하트) → DM 공유 화면
+- [x] 2. 영상 화면 → 댓글창(토글, 용두 스크롤, 하트) → DM 공유 화면 (영상은 자리표시 화면, 시뮬레이터/실기기 확인 필요)
 - [ ] 3. 폰 앱 로그인 + 실제 데이터 소스 연동

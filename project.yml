@@ -1,6 +1,6 @@
 name: ReelsWatch
 options:
-  bundleIdPrefix: com.example
+  bundleIdPrefix: com.redbridgecompany
   deploymentTarget:
     watchOS: "10.0"
 settings:
@@ -21,7 +21,7 @@ targets:
         WKApplication: true
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.example.reelswatch
+        PRODUCT_BUNDLE_IDENTIFIER: com.redbridgecompany.reelswatch
         TARGETED_DEVICE_FAMILY: "4"
   ReelsWatchTests:
     type: bundle.unit-test
@@ -32,7 +32,7 @@ targets:
       - target: ReelsWatch
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.example.reelswatch.tests
+        PRODUCT_BUNDLE_IDENTIFIER: com.redbridgecompany.reelswatch.tests
 schemes:
   ReelsWatch:
     build:
