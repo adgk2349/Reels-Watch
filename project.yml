@@ -1,0 +1,43 @@
+name: ReelsWatch
+options:
+  bundleIdPrefix: com.example
+  deploymentTarget:
+    watchOS: "10.0"
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+targets:
+  ReelsWatch:
+    type: application
+    platform: watchOS
+    sources:
+      - ReelsWatch
+    info:
+      path: ReelsWatch/Info.plist
+      properties:
+        CFBundleDisplayName: Reels Watch
+        WKApplication: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.reelswatch
+        TARGETED_DEVICE_FAMILY: "4"
+  ReelsWatchTests:
+    type: bundle.unit-test
+    platform: watchOS
+    sources:
+      - ReelsWatchTests
+    dependencies:
+      - target: ReelsWatch
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.reelswatch.tests
+schemes:
+  ReelsWatch:
+    build:
+      targets:
+        ReelsWatch: all
+    test:
+      targets:
+        - ReelsWatchTests
